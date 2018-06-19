@@ -1,30 +1,39 @@
 const particle = require('./particle.class');
-const game = require('./game');
+const Game = require('./game');
 
 module.exports = class plankton extends particle {
 
-	constructor() {
-		if (!this.coords)
-			var coords = {
-				x: Math.floor(Math.random() * game.canvas.width) + 1,
-				y: Math.floor(Math.random() * game.canvas.height) + 1
+	constructor(coords) {
+
+		if (!coords) {
+			coords = {
+				x: Math.floor(Math.random() * document.getElementById('canvas').width) + 1,
+				y: Math.floor(Math.random() * document.getElementById('canvas').height) + 1
 			}
+		}
+
 		super('vegetal', coords);
 		this.size = Math.floor(Math.random() * 4) + 1;
 		this.color = '#9BCD9B';
 		this.speed = 1;
-		this.nutritionalValue = 12;
+		this.lifespan = 12000;
 	}
 
 	divide() {
+
 		let p = new plankton('vegetal', {
 			x: this.x,
 			y: this.y
 		});
-		game.props.push(p);
+
+		Game.props.push(p);
+		
 	}
 
 	move() {
+
+		if(this.lifespan == this.lifetime)
+			this.die();
 
 		let isMoving = (Math.floor(Math.random() * 2) == 0);
 

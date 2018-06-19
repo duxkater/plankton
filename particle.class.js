@@ -1,4 +1,4 @@
-const game = require('./game');
+const Game = require('./game');
 
 module.exports = class particle {
 
@@ -9,10 +9,16 @@ module.exports = class particle {
 	}
 
 	draw() {
-		game.ctx.fillStyle = this.color;
-		game.ctx.beginPath();
-		game.ctx.arc(this.coords.x, this.coords.y, this.size, 0, 2 * Math.PI);
-		game.ctx.stroke();
+		Game.ctx.fillStyle = this.color;
+		Game.ctx.beginPath();
+		Game.ctx.arc(this.coords.x, this.coords.y, this.size, 0, 2 * Math.PI);
+		Game.ctx.stroke();
+	}
+
+	die() {
+		for(let i in Game.props)
+			if(Game.props[i].id == this.id)
+				Game.props.splice(i, 1);
 	}
 
 }

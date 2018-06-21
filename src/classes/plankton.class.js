@@ -1,7 +1,7 @@
 const particle = require('./particle.class');
-const Game = require('./game');
 
-module.exports = class plankton extends particle {
+console.log(Game);
+class plankton extends particle {
 
 	constructor(coords) {
 
@@ -13,20 +13,23 @@ module.exports = class plankton extends particle {
 		}
 
 		super('vegetal', coords);
+		this.Game = require('../game');
 		this.size = Math.floor(Math.random() * 4) + 1;
 		this.color = '#9BCD9B';
 		this.speed = 1;
-		this.lifespan = 12000;
+		this.lifespan = 1200;
 	}
 
 	divide() {
 
-		let p = new plankton('vegetal', {
+		let p = new plankton({
 			x: this.x,
 			y: this.y
 		});
 
-		Game.props.push(p);
+		this.Game.props.push(p);
+
+		console.log('Plankton born');
 		
 	}
 
@@ -65,3 +68,5 @@ module.exports = class plankton extends particle {
 	}
 
 }
+
+module.exports = plankton;

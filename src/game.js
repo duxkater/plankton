@@ -1,5 +1,5 @@
-const particle = require('./particle.class');
-const plankton = require('./plankton.class');
+const particle = require('./classes/particle.class');
+const plankton = require('./classes/plankton.class');
 
 var Game = {};
 
@@ -43,7 +43,7 @@ Game.loop = function(timestamp) {
 	Game.draw();
 
 	Game.lastRender = timestamp;
-	// window.requestAnimationFrame(Game.loop);
+	window.requestAnimationFrame(Game.loop);
 
 }
 

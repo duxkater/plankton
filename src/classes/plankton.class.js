@@ -1,9 +1,8 @@
 const particle = require('./particle.class');
 
-console.log(Game);
 class plankton extends particle {
 
-	constructor(coords) {
+	constructor(coords, Game) {
 
 		if (!coords) {
 			coords = {
@@ -12,8 +11,7 @@ class plankton extends particle {
 			}
 		}
 
-		super('vegetal', coords);
-		this.Game = require('../game');
+		super('vegetal', coords, Game);
 		this.size = Math.floor(Math.random() * 4) + 1;
 		this.color = '#9BCD9B';
 		this.speed = 1;

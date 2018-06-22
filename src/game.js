@@ -1,4 +1,3 @@
-const particle = require('./classes/particle.class');
 const plankton = require('./classes/plankton.class');
 
 var Game = {};
@@ -13,7 +12,7 @@ Game.lastRender = 0;
 Game.init = function() {
 
 	for (let i = 0; i < 5; i++) {
-		let p = new plankton();
+		let p = new plankton(false, Game);
 		Game.props.push(p);
 	}
 	

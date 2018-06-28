@@ -1,8 +1,6 @@
-const Game = require('../game');
-
 module.exports = class particle {
 
-	constructor(type, coords, Game) {
+	constructor(type, coords) {
 		this.type = type;
 		this.id = '_' + Math.random().toString(36).substr(2, 9);
 		this.coords = coords;
@@ -16,7 +14,7 @@ module.exports = class particle {
 	}
 
 	die() {
-		for(let i in this.Game.props)
+		for(let i in Game.props)
 			if(Game.props[i].id == this.id)
 				Game.props.splice(i, 1);
 

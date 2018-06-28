@@ -2,7 +2,9 @@ const particle = require('./particle.class');
 
 class plankton extends particle {
 
-	constructor(coords, Game) {
+	constructor(coords) {
+
+		console.log(Game);
 
 		if (!coords) {
 			coords = {
@@ -11,11 +13,12 @@ class plankton extends particle {
 			}
 		}
 
-		super('vegetal', coords, Game);
-		this.size = Math.floor(Math.random() * 4) + 1;
+		super('plankton', coords);
+		this.size = 1;
 		this.color = '#9BCD9B';
-		this.speed = 1;
+		this.speed = 10;
 		this.lifespan = 1200;
+		this.lifetime = 0;
 	}
 
 	divide() {
@@ -25,42 +28,38 @@ class plankton extends particle {
 			y: this.y
 		});
 
-		this.Game.props.push(p);
+		Game.props.push(p);
 
-		console.log('Plankton born');
-		
+	}
+
+	grow() {
+		if(this.lifetime >= 1000)
+			this.size = 2;
+		if(this.lifetime >= 2000)
+			this.size = 3;
+		if(this.lifetime >= 3000)
+			this.size = 4;
 	}
 
 	move() {
 
+		this.lifetime++;
+
+		this.grow();
+
 		if(this.lifespan == this.lifetime)
 			this.die();
 
-		let isMoving = (Math.floor(Math.random() * 2) == 0);
-
-		if (isMoving) {
-
-			let operators = [{
-				sign: "+",
-				method: function(a, b) {
-					return a + b;
-				}
-			}, {
-				sign: "-",
-				method: function(a, b) {
-					return a - b;
-				}
-			}];
-
-			let selectedOperatorx = Math.floor(Math.random() * operators.length);
-			let selectedOperatory = Math.floor(Math.random() * operators.length);
-			this.coords.x = operators[selectedOperatorx].method(this.coords.x, this.speed);
-			this.coords.y = operators[selectedOperatory].method(this.coords.y, this.speed);
+		// move
+		if ((Math.floor(Math.random() * 100) == 0)) {
+			let selectedOperatorx = Math.floor(Math.random() * Game.operators.length);
+			let selectedOperatory = Math.floor(Math.random() * Game.operators.length);
+			this.coords.x = Game.operators[selectedOperatorx].method(this.coords.x, this.speed);
+			this.coords.y = Game.operators[selectedOperatory].method(this.coords.y, this.speed);
+		// divide
 		} else {
-			let isDividing = (Math.floor(Math.random() * 2000) == 0);
-			if (isDividing) {
+			if ((Math.floor(Math.random() * 2000) == 0))
 				this.divide();
-			}
 		}
 
 	}

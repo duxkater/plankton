@@ -7,7 +7,6 @@ Game.ctx = Game.canvas.getContext('2d');
 Game.props = [];
 Game.canvas.width = 1500;
 Game.canvas.height = 500;
-Game.lastRender = 0;
 
 Game.operators = [{
 	sign: "+",

@@ -1,12 +1,11 @@
 const plankton = require('./classes/plankton.class');
 
 Game = {};
-Game.plankton = plankton;
 Game.canvas = document.getElementById('canvas');
 Game.ctx = Game.canvas.getContext('2d');
 Game.props = [];
-Game.canvas.width = 1500;
-Game.canvas.height = 500;
+Game.canvas.width = window.innerWidth;
+Game.canvas.height = window.innerHeight;
 
 Game.operators = [{
 	sign: "+",
@@ -22,12 +21,10 @@ Game.operators = [{
 
 Game.init = function() {
 
-	for (let i = 0; i < 5; i++) {
-		let p = new Game.plankton();
-		Game.props.push(p);
-	}
+	for (let i = 0; i < 5; i++)
+		this.props.push(new plankton());
 
-	requestAnimationFrame(Game.loop);
+	requestAnimationFrame(this.loop);
 
 }
 
@@ -50,8 +47,6 @@ Game.draw = function() {
 Game.loop = function(timestamp) {
 
 	let progress = timestamp - this.lastRender;
-
-	this.props = Game.props;
 
 	Game.update(progress);
 	Game.draw();

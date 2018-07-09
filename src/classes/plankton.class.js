@@ -13,7 +13,7 @@ class plankton extends particle {
 
 		super('plankton', coords);
 		this.size = 1;
-		this.color = '#9BCD9B';
+		this.color = '#FF0000';
 		this.speed = 5;
 		this.lifespan = 5000;
 		this.lifetime = 0;

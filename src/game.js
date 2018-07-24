@@ -30,8 +30,8 @@ Game.init = function() {
 
 Game.update = function(progress) {
 
-	for (var i in this.props)
-		this.props[i].move();
+	for (let i in this.props)
+		this.props[i].turn();
 
 }
 
@@ -39,7 +39,7 @@ Game.draw = function() {
 
 	this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
-	for (var i in this.props)
+	for (let i in this.props)
 		this.props[i].draw();
 
 }

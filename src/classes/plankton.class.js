@@ -1,6 +1,6 @@
 const particle = require('./particle.class');
 
-class plankton extends particle {
+module.exports = class plankton extends particle {
 
 	constructor(coords) {
 
@@ -16,18 +16,16 @@ class plankton extends particle {
 		this.color = '#FF0000';
 		this.speed = 5;
 		this.lifespan = 5000;
-		this.lifetime = 0;
 	}
 
 	divide() {
 
-		let p = new plankton({
+		Game.props.push(new plankton({
 			x: this.coords.x,
 			y: this.coords.y
-		});
+		}));
 
 		console.log('plankton born');
-		Game.props.push(p);
 
 	}
 
@@ -40,14 +38,10 @@ class plankton extends particle {
 			this.size = 4;
 	}
 
-	move() {
+	turn() {
 
-		this.lifetime++;
-
+		super.turn();
 		this.grow();
-
-		if (this.lifespan == this.lifetime)
-			this.die();
 
 		// move
 		if ((Math.floor(Math.random() * 50) == 0)) {
@@ -66,5 +60,3 @@ class plankton extends particle {
 	}
 
 }
-
-module.exports = plankton;

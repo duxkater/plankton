@@ -43,7 +43,6 @@ module.exports = class plankton extends particle {
 		super.turn();
 		this.grow();
 
-		// move
 		if ((Math.floor(Math.random() * 50) == 0)) {
 			let selectedOperatorx = Math.floor(Math.random() * Game.operators.length);
 			let selectedOperatory = Math.floor(Math.random() * Game.operators.length);
@@ -51,7 +50,6 @@ module.exports = class plankton extends particle {
 				this.coords.x = Game.operators[selectedOperatorx].method(this.coords.x, this.speed);
 			if (Math.floor(Math.random() * 2) == 0)
 				this.coords.y = Game.operators[selectedOperatory].method(this.coords.y, this.speed);
-			// divide
 		} else {
 			if ((Math.floor(Math.random() * 2000) == 0))
 				this.divide();

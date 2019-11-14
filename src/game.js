@@ -1,4 +1,5 @@
 const plankton = require('./classes/plankton.class');
+const amoeba = require('./classes/amoeba.class');
 
 Game = {};
 Game.canvas = document.getElementById('canvas');
@@ -23,6 +24,9 @@ Game.init = function() {
 
 	for (let i = 0; i < 5; i++)
 		this.props.push(new plankton());
+
+	for(let i = 0; i < 4; i++)
+		this.props.push(new amoeba());
 
 	requestAnimationFrame(this.loop);
 

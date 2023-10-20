@@ -12,32 +12,42 @@ module.exports = class plankton extends particle {
 		}
 
 		super('plankton', coords);
-		this.size = 1;
-		this.color = '#FF0000';
+		this.size = 10;
+		this.color = '#008000';
+		this.characters = ['°', '*', 'o', '.'];
+		this.selectedCharacter = '';
 		this.speed = 5;
 		this.lifespan = 5000;
-		this.nutritionalValue = 1000;
+		this.nutritionalValue = 200;
 
+	}
+
+	setCharacter() {
+		this.selectedCharacter = this.characters[(Math.floor(Math.random() * this.characters.length))];
 	}
 
 	divide() {
-
-		Game.props.push(new plankton({
+		let newItem = new plankton({
 			x: this.coords.x,
 			y: this.coords.y
-		}));
-
-		console.log('plankton born');
-
+		});
+		newItem.setCharacter();
+		Game.props.push(newItem);
 	}
 
 	grow() {
-		if (this.lifetime >= 1000)
-			this.size = 2;
-		if (this.lifetime >= 2000)
-			this.size = 3;
-		if (this.lifetime >= 3000)
-			this.size = 4;
+		if (this.lifetime == 1000) {
+			this.size = 12;
+			this.nutritionalValue = this.nutritionalValue * this.size;
+		}
+		if (this.lifetime == 2000) {
+			this.size = 15;
+			this.nutritionalValue = this.nutritionalValue * this.size;
+		}
+		if (this.lifetime == 3000) {
+			this.size = 18;
+			this.nutritionalValue = this.nutritionalValue * this.size;
+		}
 	}
 
 	turn() {
@@ -48,8 +58,10 @@ module.exports = class plankton extends particle {
 		if ((Math.floor(Math.random() * 50) == 0)) {
 			this.idle();
 		} else {
-			if ((Math.floor(Math.random() * 2000) == 0))
+			if ((Math.floor(Math.random() * 800) == 0)) {
 				this.divide();
+			}
+				
 		}
 
 	}

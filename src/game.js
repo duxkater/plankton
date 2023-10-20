@@ -22,10 +22,13 @@ Game.operators = [{
 
 Game.init = function() {
 
-	for (let i = 0; i < 5; i++)
-		this.props.push(new plankton());
+	for (let i = 0; i < 10; i++) {
+		let item = new plankton();
+		item.setCharacter();
+		this.props.push(item);
+	}
 
-	for(let i = 0; i < 4; i++)
+	for(let i = 0; i < 5; i++)
 		this.props.push(new amoeba());
 
 	requestAnimationFrame(this.loop);
@@ -42,9 +45,14 @@ Game.update = function(progress) {
 Game.draw = function() {
 
 	this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+	Game.ctx.rect(0, 0, this.canvas.width, this.canvas.height);
+	Game.ctx.fillStyle = "#000a26";
+	Game.ctx.fill();
 
-	for (let i in this.props)
+	for (let i in this.props) {
 		this.props[i].draw();
+	}
+		
 
 }
 

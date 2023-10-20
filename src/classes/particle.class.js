@@ -12,9 +12,8 @@ module.exports = class particle {
 	draw() {
 
 		Game.ctx.fillStyle = this.color;
-		Game.ctx.beginPath();
-		Game.ctx.arc(this.coords.x, this.coords.y, this.size, 0, 2 * Math.PI);
-		Game.ctx.stroke();
+		Game.ctx.font = this.size + "px Arial";
+		Game.ctx.fillText(this.selectedCharacter, this.coords.x, this.coords.y);
 
 	}
 
@@ -24,17 +23,27 @@ module.exports = class particle {
 		return (diffX*diffX+diffY*diffY);
 	}
 
-	findNearest(type) {
-		let nearest = Game.props[Game.props.length - 1];
-		let nearestDist = this.distSquared(nearest.coords, this.coords);
+	findNearest(findType = false) {
+
+		let nearestDist = null;
+		let nearest = null;
+
 		for(let i in Game.props) {
 			let point = Game.props[i];
-			if(point.type != type)
+			
+			if (point.id == this.id)
 				continue;
-			let dist = this.distSquared(this.coords, point.coords);
-			if(dist < nearestDist)
+			
+			if (findType && point.type != findType)
+				continue;
+
+			let pointDist = this.distSquared(this.coords, point.coords);
+			if (!nearestDist || pointDist < nearestDist) {
+				nearestDist = pointDist;
 				nearest = point;
+			}
 		}
+
 		return nearest;
 	}
 
@@ -48,13 +57,17 @@ module.exports = class particle {
 	}
 
 	die() {
-
 		for (let i in Game.props)
 			if (Game.props[i].id == this.id)
 				Game.props.splice(i, 1);
+	}
 
-		console.log(this.type + ' died');
-
+	moveToTarget() {
+		let targetCoords = this.target.coords;
+		let newCoords = this.coords;
+		newCoords.x = (this.coords.x < targetCoords.x) ? this.coords.x + this.speed : this.coords.x - this.speed;
+		newCoords.y = (this.coords.y < targetCoords.y) ? this.coords.y + this.speed : this.coords.y - this.speed;
+		this.coords = newCoords;
 	}
 
 	turn() {

@@ -12,9 +12,10 @@ module.exports = class amoeba extends particle {
 		}
 
 		super('amoeba', coords);
-		this.size = 3;
-		this.color = '#FF0000';
-		this.speed = 2;
+		this.size = 10;
+		this.color = '#e6e6e6';
+		this.selectedCharacter = "◌";
+		this.speed = 1;
 		this.lifespan = 50000;
 		this.foodState = 3000;
 		this.foodNeeded = 2000;
@@ -23,18 +24,12 @@ module.exports = class amoeba extends particle {
 	}
 
 	grow() {
-		this.size++;
+		this.size = this.size + 5;
 		this.nutritionalValue = 1000 * this.size;
 	}
 
 	isHungry() {
 		return this.foodState < this.foodNeeded;
-	}
-
-	moveToTarget() {
-		let targetCoords = this.target.coords;
-		this.coords = targetCoords;
-		this.eat(this.target);
 	}
 
 	eat(target) {
@@ -44,22 +39,38 @@ module.exports = class amoeba extends particle {
 		this.target = false;
 	}
 
+	divide() {
+		Game.props.push(new amoeba({
+			x: this.coords.x,
+			y: this.coords.y
+		}));
+	}
+
 	turn() {
 
 		super.turn();
 		this.foodState--;
 
-		if(this.isHungry()) {
-			if(this.target) {
-				console.log('hungry');
-				this.moveToTarget();
+		if (this.isHungry() && !this.target) {
+				this.target = this.findNearest('plankton');
+		}
+		else {
+			if (this.target) {
+				if (this.target.coords.x == this.coords.x && this.target.coords.y == this.coords.y) {
+					this.eat(this.target);
+				}
+				else {
+					this.moveToTarget();
+				}
 			}
 			else {
-				this.target = this.findNearest('plankton');
+				if ((Math.floor(Math.random() * 1500) == 0))
+					this.divide();
+				else
+					this.idle();
 			}
+			
 		}
-		else
-			this.idle();
 
 		if(this.foodState <= 0)
 			this.health--;

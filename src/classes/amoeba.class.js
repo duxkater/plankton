@@ -64,7 +64,7 @@ module.exports = class amoeba extends particle {
 				}
 			}
 			else {
-				if ((Math.floor(Math.random() * 1500) == 0))
+				if ((Math.floor(Math.random() * 1500) == 0) && Game.props.length < 100)
 					this.divide();
 				else
 					this.idle();

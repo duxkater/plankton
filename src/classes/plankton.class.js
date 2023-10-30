@@ -58,7 +58,7 @@ module.exports = class plankton extends particle {
 		if ((Math.floor(Math.random() * 50) == 0)) {
 			this.idle();
 		} else {
-			if ((Math.floor(Math.random() * 800) == 0)) {
+			if ((Math.floor(Math.random() * 800) == 0) && Game.props.length < 100) {
 				this.divide();
 			}
 				

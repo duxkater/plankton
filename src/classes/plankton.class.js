@@ -18,7 +18,7 @@ module.exports = class plankton extends particle {
 		this.selectedCharacter = '';
 		this.speed = 5;
 		this.lifespan = 5000;
-		this.nutritionalValue = 200;
+		this.nutritionalValue = 100;
 
 	}
 

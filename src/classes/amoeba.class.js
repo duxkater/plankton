@@ -15,9 +15,9 @@ module.exports = class amoeba extends particle {
 		this.size = 10;
 		this.color = '#e6e6e6';
 		this.selectedCharacter = "◌";
-		this.speed = 1;
+		this.speed = 2;
 		this.lifespan = 50000;
-		this.foodState = 3000;
+		this.foodState = 0;
 		this.foodNeeded = 2000;
 		this.health = 2000;
 		this.target = false;
@@ -56,7 +56,7 @@ module.exports = class amoeba extends particle {
 		}
 		else {
 			if (this.target) {
-				if (this.target.coords.x == this.coords.x && this.target.coords.y == this.coords.y) {
+				if (this.isInRadius(this.target)) {
 					this.eat(this.target);
 				}
 				else {

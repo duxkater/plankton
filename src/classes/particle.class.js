@@ -17,6 +17,12 @@ module.exports = class particle {
 
 	}
 
+	isInRadius(target) {
+		let dist = 0;
+		dist = Math.sqrt(Math.pow(target.coords.x - this.coords.x, 2) + Math.pow(target.coords.y - this.coords.y, 2));
+		return dist < this.size;
+	}
+
 	distSquared(pt1, pt2) {
 		var diffX = pt1.x - pt2.x;
 		var diffY = pt1.y - pt2.y;

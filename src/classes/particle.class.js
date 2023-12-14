@@ -1,20 +1,17 @@
 module.exports = class particle {
 
 	constructor(type, coords) {
-		
 		this.type = type;
 		this.id = '_' + Math.random().toString(36).substr(2, 9);
 		this.coords = coords;
 		this.lifetime = 0;
-		
 	}
 
 	draw() {
-
 		Game.ctx.fillStyle = this.color;
 		Game.ctx.font = this.size + "px Arial";
 		Game.ctx.fillText(this.selectedCharacter, this.coords.x, this.coords.y);
-
+		// Game.ctx.fillText(this.nutritionalValue, this.coords.x, this.coords.y);
 	}
 
 	isInRadius(target) {
